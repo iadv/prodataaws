@@ -7,3 +7,5 @@ langchain-openai
 #pysqlite3-binary
 pandas
 tabulate
+Pillow
+boto3
