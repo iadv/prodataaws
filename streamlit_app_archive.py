@@ -70,8 +70,47 @@ with st.sidebar:
 
 # st.header("Start asking questions about your business data", divider="gray")
 # First Row - Buttons (Using Columns)
-#Deleted col1, col2 = st.columns(2)  # Create two columns Copy from other product
+col1, col2 = st.columns(2)  # Create two columns
 
+with col1:
+    st.markdown(
+        """
+        <button style="
+            background-color: #d7ecff; /* Primary blue color */
+            color: black;
+            padding: 10px 15px;
+            border: 2px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            width: 100%; /* Make button take full width of column */
+            margin: 0 5px;
+        "><b>_Text2DataAnalysis_</b> Co-Pilot</button>
+        """,
+        unsafe_allow_html=True,
+    )
+
+with col2:
+    st.markdown(
+        f"""
+        <a href="https://processdatav2.vercel.app/" target="_blank">
+            <button style="
+                background-color: #f6f5fd; /* Transparent background for outline */
+                color: black; /* Primary blue color for text */
+                padding: 10px 15px;
+                border: 2px;
+                border-radius: 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                transition: background-color 0.3s ease, color 0.3s ease; /* Hover effects */
+                cursor: pointer;
+                width: 100%; /* Make button take full width of column */
+                margin: 0 5px;
+            "> <b>Click here</b> for other AI Co-Pilots</button>
+        </a>
+        """,
+        unsafe_allow_html=True,
+    )
 
 # Second Row - Header
 st.markdown(
@@ -107,7 +146,7 @@ def format_response(response_body):
 
 # Handling user input and sending to agent
 if user_query:
-    #st.session_state['history'].append({"question": user_query, "answer": "..."})  # Placeholder for initial answer
+    st.session_state['history'].append({"question": user_query, "answer": "..."})  # Placeholder for initial answer
     
     event = {
         "sessionId": "MYSESSION",
@@ -135,33 +174,10 @@ if user_query:
 
     # Display formatted response and trace data
     st.sidebar.text_area("Formatted Response", value=all_data, height=300)
-    # st.session_state['history'].append({"question": user_query, "answer": the_response})
+    st.session_state['history'].append({"question": user_query, "answer": the_response})
 
-    # Append the new message to the chat history
-    #st.session_state['history'].append(user_query)
-    #st.session_state['history'].append(the_response)
-    # Append labeled user input and chatbot response
-    st.session_state['history'].append({"sender": "User", "text": user_query})
-    st.session_state['history'].append({"sender": "AI", "text": the_response})
-
-
-    #st.session_state['history'].append(the_response)
-    # Display previous chat messages
-    #for message in st.session_state['history']:
-       #st.write(message)
-
-    for message in st.session_state['history']:
-        if message["sender"] == "User":
-            st.markdown(f"<div style='text-align: left; color: green;'><strong>👤 User:</strong> {message['text']}</div>", unsafe_allow_html=True)
-        else:
-            st.markdown(f"<div style='text-align: left; color: blue;'><strong>🤖 AI:</strong> {message['text']}</div>", unsafe_allow_html=True)
-
-
-
-    #st.session_state['trace_data'] = the_response
-    #st.write(the_response)  # Display the response to the user
-    #st.session_state['history'].append({"question": user_query, "answer": the_response})
-# st.session_state['history'].append({"question": user_query, "answer": the_response})
+    st.session_state['trace_data'] = the_response
+    st.write(the_response)  # Display the response to the user
 
 # If session is ended
 if end_session_button:
